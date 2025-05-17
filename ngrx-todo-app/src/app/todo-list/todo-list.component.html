@@ -1,0 +1,36 @@
+<h2>Todo List</h2>
+
+<div>
+  <input type="text" placeholder="Add new todo" [(ngModel)]="newTodoText">
+  <button (click)="addTodo()">Add</button>
+</div>
+
+<h3>All Todos</h3>
+<ul>
+  <li *ngFor="let todo of todos$ | async">
+    <input type="checkbox" [checked]="todo.completed" (change)="toggleTodo(todo.id)">
+    <span [ngClass]="{'completed': todo.completed}">{{ todo.text }}</span>
+    <button (click)="removeTodo(todo.id)">Remove</button>
+  </li>
+</ul>
+
+<h3>Completed Todos</h3>
+<ul>
+  <li *ngFor="let todo of completedTodos$ | async">
+    <span>{{ todo.text }}</span>
+  </li>
+</ul>
+
+<h3>Incomplete Todos</h3>
+<ul>
+  <li *ngFor="let todo of incompleteTodos$ | async">
+    <span>{{ todo.text }}</span>
+  </li>
+</ul>
+
+<style>
+  .completed {
+    text-decoration: line-through;
+    color: gray;
+  }
+</style>
